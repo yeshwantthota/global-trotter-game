@@ -8,15 +8,18 @@ import ClueDisplay from './ClueDisplay';
 import AnswerOptions from './AnswerOptions';
 import ScoreDisplay from './ScoreDisplay';
 
-const ChallengeFriend: React.FC = () => {
+interface ChallengeFriendProps {
+  challengerUsername?: string;
+  challengerScore?: number;
+}
+
+const ChallengeFriend: React.FC<ChallengeFriendProps> = ({ 
+  challengerUsername}) => {
   const searchParams = useSearchParams();
-  const challengeId = searchParams.get('challengeId');
-  const challengerUsername = searchParams.get('challengerUsername');
   const currentUser = searchParams.get('username');
   const [challengerInfo, setChallengerInfo] = useState<{ username: string; score: number } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showSharePopup, setShowSharePopup] = useState(!challengeId);
   const [gameState, setGameState] = useState<GameState>({
     currentCity: null,
     selectedAnswer: null,
@@ -140,12 +143,6 @@ const ChallengeFriend: React.FC = () => {
                 Share on WhatsApp
               </button>
             </div>
-            {/* <button
-              onClick={() => setShowSharePopup(false)}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
-            >
-              Start Playing
-            </button> */}
           </div>
         </div>
       </div>
@@ -159,41 +156,13 @@ const ChallengeFriend: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-8">
       <div className="max-w-4xl mx-auto">
+        
         {challengerInfo && (
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
             <h2 className="text-xl font-bold mb-2">Challenge from {challengerInfo.username}</h2>
             <p className="text-gray-600">Their Score: {challengerInfo.score}</p>
-            {/* <button
-              onClick={() => setShowSharePopup(true)}
-              className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Share Challenge
-            </button> */}
           </div>
         )}
-
-        {/* {showSharePopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white rounded-lg p-6 max-w-md w-full">
-              <h2 className="text-2xl font-bold mb-4">Share Challenge</h2>
-              <div className="mb-4">
-                <button
-                  onClick={handleShare}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full"
-                >
-                  Share on WhatsApp
-                </button>
-              </div>
-              <button
-                onClick={() => setShowSharePopup(false)}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        )} */}
-
         <ScoreDisplay
           score={gameState.score}
           correctAnswers={gameState.correctAnswers}
