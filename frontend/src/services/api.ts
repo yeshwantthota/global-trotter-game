@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { City, User, ChallengeLink } from '../types';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = 'https://globe-trotter-backend-hrv2.onrender.com/api';
 
 export const api = {
   getRandomCity: async (): Promise<City> => {
