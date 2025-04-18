@@ -38,7 +38,7 @@ const Game: React.FC = () => {
   // Save score when component unmounts
   useEffect(() => {
     return () => {
-      if (username && gameState.score > 0) {
+      if (username && username !== 'guest' && gameState.score > 0) {
         saveScore();
       }
     };
@@ -46,8 +46,11 @@ const Game: React.FC = () => {
 
   const saveScore = async () => {
     try {
-      await api.updateUserScore(username!, gameState.score);
-      console.log('Score saved successfully');
+      // Only save score if user is not a guest
+      if (username && username !== 'guest') {
+        await api.updateUserScore(username, gameState.score);
+        console.log('Score saved successfully');
+      }
     } catch (error) {
       console.error('Failed to save score:', error);
     }
@@ -138,7 +141,7 @@ const Game: React.FC = () => {
   };
 
   const handleChallengeFriend = async () => {
-    if (username) {
+    if (username && username !== 'guest') {
       try {
         await saveScore();
         const challenge = await api.createChallenge(username);
@@ -189,14 +192,16 @@ const Game: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
-              <button
-                onClick={handleChallengeFriend}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
-              >
-                Challenge a Friend
-              </button>
-            </div>
+            {username !== 'guest' && (
+              <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
+                <button
+                  onClick={handleChallengeFriend}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  Challenge a Friend
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Middle Column - Clues */}

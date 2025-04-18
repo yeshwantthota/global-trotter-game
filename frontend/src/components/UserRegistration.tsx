@@ -30,6 +30,11 @@ const UserRegistration: React.FC = () => {
     }
   };
 
+  const handlePlayAsGuest = () => {
+    localStorage.setItem('username', 'guest');
+    router.push('/game');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <CityBackground/>
@@ -61,13 +66,32 @@ const UserRegistration: React.FC = () => {
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
-          >
-            {isLoading ? 'Registering...' : 'Start Playing'}
-          </button>
+          <div className="space-y-3">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            >
+              {isLoading ? 'Registering...' : 'Start Playing'}
+            </button>
+
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500 rounded-2xl">or</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handlePlayAsGuest}
+              className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded transition-colors duration-200"
+            >
+              Play as Guest
+            </button>
+          </div>
         </form>
       </div>
     </div>
