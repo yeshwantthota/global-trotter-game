@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { City } from '../types';
+import SadFace from './SadFace';
 
 interface AnswerOptionsProps {
   cities: City[];
@@ -25,9 +26,12 @@ const AnswerOptions: React.FC<AnswerOptionsProps> = ({
     return 'bg-gray-200 text-gray-600';
   };
 
+  const showSadFace = isAnswered && selectedAnswer && selectedAnswer !== correctAnswer;
+
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-bold text-gray-800">Select the correct city:</h2>
+      <h2 className="text-xl font-bold text-blue-500 opacity-80">Select the correct city:</h2>
+      {showSadFace && <SadFace />}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cities.map((city) => (
           <button
@@ -36,8 +40,8 @@ const AnswerOptions: React.FC<AnswerOptionsProps> = ({
             className={`p-4 rounded-lg shadow-md transition-colors duration-200 ${getButtonClass(city.name)}`}
             disabled={isAnswered}
           >
-            <div className="font-semibold">{city.name}</div>
-            <div className="text-sm">{city.country}</div>
+            <div className="font-semibold text-shadow-white opacity-80">{city.name}</div>
+            <div className="text-sm text-shadow-white opacity-80">{city.country}</div>
           </button>
         ))}
       </div>

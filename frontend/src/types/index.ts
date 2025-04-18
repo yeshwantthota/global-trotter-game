@@ -23,6 +23,12 @@ export interface GameState {
   incorrectAnswers: number;
 }
 
+export interface Challenge {
+  challengeId: string;
+  username: string;
+  score: number;
+  link: string;
+}
 export interface ChallengeLink {
   username: string;
   score: number;

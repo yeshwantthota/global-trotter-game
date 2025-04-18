@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { City, User, ChallengeLink } from '../types';
+import { City, User,Challenge, ChallengeLink } from '../types';
 
-const API_URL = 'https://globe-trotter-backend-hrv2.onrender.com/api';
+const API_URL = 'http://localhost:3001/api';
 
 export const api = {
   getRandomCity: async (): Promise<City> => {
@@ -28,16 +28,7 @@ export const api = {
     await axios.put(`${API_URL}/users/${username}/score`, { score });
   },
 
-  updateScore: async (username: string, score: number, isCorrect: boolean): Promise<User> => {
-    const response = await axios.put(`${API_URL}/users/score`, {
-      username,
-      score,
-      isCorrect
-    });
-    return response.data;
-  },
-
-  createChallenge: async (username: string): Promise<ChallengeLink> => {
+  createChallenge: async (username: string): Promise<Challenge> => {
     const response = await axios.post(`${API_URL}/challenges`, { username });
     return response.data;
   },

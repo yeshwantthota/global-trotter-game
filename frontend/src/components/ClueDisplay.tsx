@@ -12,9 +12,9 @@ const ClueDisplay: React.FC<ClueDisplayProps> = ({ clues, isAnswered, funFact })
   return (
     <div className="space-y-4">
       <div className="space-y-2">
-        <h2 className="text-xl font-bold text-gray-800">Clues:</h2>
+        <h2 className="text-xl font-bold text-blue-500 opacity-80">Clues:</h2>
         {clues.map((clue, index) => (
-          <p key={index} className="text-gray-600">
+          <p key={index} className="text-shadow-white opacity-80">
             {clue}
           </p>
         ))}

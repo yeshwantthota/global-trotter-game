@@ -8,6 +8,7 @@ import { City, GameState } from '../types';
 import ClueDisplay from './ClueDisplay';
 import AnswerOptions from './AnswerOptions';
 import ScoreDisplay from './ScoreDisplay';
+import CityBackground from './CityBackground';
 
 const Game: React.FC = () => {
   const router = useRouter();
@@ -75,21 +76,17 @@ const Game: React.FC = () => {
 
   const generateAnswerOptions = (allCities: City[], correctCity: City) => {
     try {
-      // Filter out the correct city from the options
       const otherCities = allCities.filter(city => city.name !== correctCity.name);
       
       if (otherCities.length < 3) {
         throw new Error('Not enough cities to generate options');
       }
       
-      // Shuffle the array and take exactly 3 random cities
       const shuffled = [...otherCities].sort(() => 0.5 - Math.random());
       const randomCities = shuffled.slice(0, 3);
       
-      // Combine with correct answer and shuffle again
       const options = [...randomCities, correctCity].sort(() => 0.5 - Math.random());
       
-      // Ensure we have exactly 4 options
       if (options.length !== 4) {
         throw new Error('Failed to generate 4 options');
       }
@@ -143,8 +140,13 @@ const Game: React.FC = () => {
   const handleChallengeFriend = async () => {
     if (username) {
       try {
-        await saveScore(); // Save current score before challenging
-        router.push(`/challenge?username=${username}`);
+        await saveScore();
+        const challenge = await api.createChallenge(username);
+        console.log(challenge);
+        const shareLink = `${window.location.origin}/challenge?challengeId=${challenge.challengeId}`;
+        const message = `I challenge you to beat my score in Globe Trotter! Click here to play: ${shareLink}`;
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
       } catch (error) {
         console.error('Failed to save score before challenge:', error);
       }
@@ -169,47 +171,65 @@ const Game: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-8">
-      {showConfetti && <ReactConfetti />}
-      
-      <div className="max-w-4xl mx-auto">
-        <ScoreDisplay
-          score={gameState.score}
-          correctAnswers={gameState.correctAnswers}
-          incorrectAnswers={gameState.incorrectAnswers}
-        />
+    <div className="min-h-screen relative">
+      <CityBackground />
+      <div className="relative z-10 p-4 md:p-8">
+        {showConfetti && <ReactConfetti />}
+        
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Score and Stats */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
+              <div className="text-white font-medium">
+                <ScoreDisplay
+                  score={gameState.score}
+                  correctAnswers={gameState.correctAnswers}
+                  incorrectAnswers={gameState.incorrectAnswers}
+                />
+              </div>
+            </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <ClueDisplay
-            clues={gameState.currentCity.clues}
-            isAnswered={gameState.isAnswered}
-            funFact={gameState.currentCity.funFacts[0]}
-          />
-        </div>
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
+              <button
+                onClick={handleChallengeFriend}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
+              >
+                Challenge a Friend
+              </button>
+            </div>
+          </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <AnswerOptions
-            cities={answerOptions}
-            selectedAnswer={gameState.selectedAnswer}
-            correctAnswer={gameState.currentCity.name}
-            isAnswered={gameState.isAnswered}
-            onAnswer={handleAnswer}
-          />
-        </div>
+          {/* Middle Column - Clues */}
+          <div className="lg:col-span-2">
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20 mb-6">
+              <div className="text-white font-bold text-lg">
+                <ClueDisplay
+                  clues={gameState.currentCity.clues}
+                  isAnswered={gameState.isAnswered}
+                  funFact={gameState.currentCity.funFacts[0]}
+                />
+              </div>
+            </div>
 
-        <div className="flex justify-between">
-          <button
-            onClick={handleNextQuestion}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-          >
-            Next Question
-          </button>
-          <button
-            onClick={handleChallengeFriend}
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-          >
-            Challenge a Friend
-          </button>
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 mb-6">
+              <div className="text-gray-800 font-medium">
+                <AnswerOptions
+                  cities={answerOptions}
+                  selectedAnswer={gameState.selectedAnswer}
+                  correctAnswer={gameState.currentCity.name}
+                  isAnswered={gameState.isAnswered}
+                  onAnswer={handleAnswer}
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleNextQuestion}
+              className="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
+            >
+              Next Question
+            </button>
+          </div>
         </div>
       </div>
     </div>

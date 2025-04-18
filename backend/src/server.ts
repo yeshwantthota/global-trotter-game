@@ -40,11 +40,11 @@ app.post('/api/users/register', async (req, res) => {
   try {
     const existingUser = await db.getUser(username);
     if (existingUser) {
-      return res.status(400).json({ error: 'Username already exists' });
+      return res.status(200).json(existingUser);
     }
 
     const user = await db.createUser(username);
-    res.json(user);
+    res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: 'Failed to register user' });
   }

@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { api } from '../services/api';
 import { City, GameState } from '../types';
 import ClueDisplay from './ClueDisplay';
 import AnswerOptions from './AnswerOptions';
 import ScoreDisplay from './ScoreDisplay';
+import CityBackground from './CityBackground';
 
 interface ChallengeFriendProps {
   challengerUsername?: string;
@@ -14,9 +14,8 @@ interface ChallengeFriendProps {
 }
 
 const ChallengeFriend: React.FC<ChallengeFriendProps> = ({ 
-  challengerUsername}) => {
-  const searchParams = useSearchParams();
-  const currentUser = searchParams.get('username');
+  challengerUsername
+}) => {
   const [challengerInfo, setChallengerInfo] = useState<{ username: string; score: number } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -109,14 +108,6 @@ const ChallengeFriend: React.FC<ChallengeFriendProps> = ({
     }
   };
 
-  const handleShare = () => {
-    const shareUrl = `${window.location.origin}/challenge?challengerUsername=${currentUser}`;
-    
-    // For WhatsApp sharing
-    const whatsappUrl = `https://wa.me/?text=Challenge me to Globe Trotter! ${shareUrl}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   if (loading) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
@@ -129,70 +120,67 @@ const ChallengeFriend: React.FC<ChallengeFriendProps> = ({
     );
   }
 
-  if (currentUser && !challengerUsername) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-8">
-        <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-bold mb-4">Challenge Your Friends!</h2>
-            <div className="mb-4">
-              <button
-                onClick={handleShare}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-full"
-              >
-                Share on WhatsApp
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   if (!gameState.currentCity) {
     return <div className="flex items-center justify-center min-h-screen">Loading game...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-8">
-      <div className="max-w-4xl mx-auto">
-        
-        {challengerInfo && (
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h2 className="text-xl font-bold mb-2">Challenge from {challengerInfo.username}</h2>
-            <p className="text-gray-600">Their Score: {challengerInfo.score}</p>
+    <div className="min-h-screen relative">
+      <CityBackground />
+      <div className="relative z-10 p-4 md:p-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Challenge Info and Stats */}
+          <div className="lg:col-span-1 space-y-6">
+            {challengerInfo && (
+              <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
+                <h2 className="text-2xl font-bold mb-2 text-blue-500">Challenge from {challengerInfo.username}</h2>
+                <p className="text-gray-300 font-medium">Their Score: {challengerInfo.score}</p>
+              </div>
+            )}
+            
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20">
+              <div className="text-white font-medium">
+                <ScoreDisplay
+                  score={gameState.score}
+                  correctAnswers={gameState.correctAnswers}
+                  incorrectAnswers={gameState.incorrectAnswers}
+                />
+              </div>
+            </div>
           </div>
-        )}
-        <ScoreDisplay
-          score={gameState.score}
-          correctAnswers={gameState.correctAnswers}
-          incorrectAnswers={gameState.incorrectAnswers}
-        />
 
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <ClueDisplay
-            clues={gameState.currentCity.clues}
-            isAnswered={gameState.isAnswered}
-            funFact={gameState.currentCity.funFacts[0]}
-          />
+          {/* Middle Column - Clues and Answers */}
+          <div className="lg:col-span-2">
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-white/20 mb-6">
+              <div className="text-white font-bold text-lg">
+                <ClueDisplay
+                  clues={gameState.currentCity.clues}
+                  isAnswered={gameState.isAnswered}
+                  funFact={gameState.currentCity.funFacts[0]}
+                />
+              </div>
+            </div>
+
+            <div className="bg-black/60 backdrop-blur-xl rounded-2xl shadow-xl p-6 mb-6">
+              <div className="text-gray-800 font-medium">
+                <AnswerOptions
+                  cities={answerOptions}
+                  selectedAnswer={gameState.selectedAnswer}
+                  correctAnswer={gameState.currentCity.name}
+                  isAnswered={gameState.isAnswered}
+                  onAnswer={handleAnswer}
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleNextQuestion}
+              className="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
+            >
+              Next Question
+            </button>
+          </div>
         </div>
-
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <AnswerOptions
-            cities={answerOptions}
-            selectedAnswer={gameState.selectedAnswer}
-            correctAnswer={gameState.currentCity.name}
-            isAnswered={gameState.isAnswered}
-            onAnswer={handleAnswer}
-          />
-        </div>
-
-        <button
-          onClick={handleNextQuestion}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full"
-        >
-          Next Question
-        </button>
       </div>
     </div>
   );
