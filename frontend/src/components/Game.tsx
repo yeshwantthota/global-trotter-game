@@ -101,7 +101,7 @@ const Game: React.FC = () => {
     }
   };
 
-  const handleAnswer = (selectedCity: string) => {
+  const handleAnswer = async (selectedCity: string) => {
     if (gameState.isAnswered) return;
 
     const isCorrect = selectedCity === gameState.currentCity?.name;
@@ -117,6 +117,8 @@ const Game: React.FC = () => {
       incorrectAnswers: !isCorrect ? prev.incorrectAnswers + 1 : prev.incorrectAnswers
     }));
 
+    await saveScore();
+
     if (isCorrect) {
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 3000);
@@ -125,6 +127,7 @@ const Game: React.FC = () => {
 
   const handleNextQuestion = async () => {
     try {
+      await saveScore();
       const randomCity = await api.getRandomCity();
       setGameState(prev => ({
         ...prev,
