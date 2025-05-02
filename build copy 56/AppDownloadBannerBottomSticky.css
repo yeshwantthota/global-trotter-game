@@ -1,0 +1,21 @@
+#bottom-sticky-root-aze12fk {
+  margin-top: 80px;
+  cursor: pointer;
+}
+#bottom-sticky-root-aze12fk .app-download-inner {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 1000;
+  height: 151px;
+  border-radius: 20px;
+  width: 315px;
+}
+#bottom-sticky-root-aze12fk .app-download-inner--show {
+  transform: translateY(0) !important;
+}
+#bottom-sticky-root-aze12fk .app-download-img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
