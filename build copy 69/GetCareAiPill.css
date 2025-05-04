@@ -1,0 +1,138 @@
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs a {
+  text-decoration: none;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb {
+  background: linear-gradient(276.8deg, #90DDFF 21.32%, #182388 72.3%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+}
+@media only screen and (max-width: 768px) {
+  #bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb {
+    display: none !important;
+  }
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb-wrapper {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 9999;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper {
+  width: 60%;
+  padding-top: 16px;
+  padding-right: 0px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper .close {
+  height: 22px;
+  width: 22px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  z-index: 9999;
+  border: none;
+  cursor: pointer;
+  border: 1px solid #F0F0F5;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper .header {
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin-top: 10px;
+  line-height: 17px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper .pcs-wrapper {
+  height: 22px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper .header-1 {
+  font-size: 16px;
+  font-weight: 700;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper .sub-header {
+  color: #FFFFFF;
+  font-size: 12px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .left-wrapper .cta {
+  background: #199FD9;
+  border-radius: 6px;
+  padding: 6px 8px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 10px;
+  display: inline-block;
+  margin-top: 12px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .right-wrapper {
+  filter: drop-shadow(10px 5px 12px rgba(0, 0, 0, 0.16));
+  position: absolute;
+  height: 110%;
+  right: 0;
+  top: -10%;
+  text-align: right;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-dweb .right-wrapper img {
+  object-fit: cover;
+  height: 100%;
+  border-bottom-right-radius: 20px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-mweb {
+  /**
+      Note:
+      Flex items, by default, may shrink to their content size. (This behavior may vary among browsers).
+      This is because flex items no longer exist in a block formatting context, where block level elements automatically take width: 100%. In a flex formatting context, elements have different defaults.
+  */
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #28328C;
+  box-sizing: border-box;
+  border-radius: 26px;
+  filter: drop-shadow(0px 5px 8px rgba(4, 5, 19, 0.16));
+}
+@media only screen and (min-width: 769px) {
+  #bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-mweb {
+    display: none !important;
+  }
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-mweb-wrapper {
+  position: fixed;
+  bottom: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-mweb .left-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-mweb .right-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #2D2D32;
+  padding-right: 16px;
+  padding-left: 4px;
+  gap: 16px;
+  font-size: 14px;
+}
+#bottom-sticky-root-aze12fk .bottom-sticky--free-pcs-mweb .right-wrapper .highlight {
+  font-weight: bold;
+  color: #28328C;
+}
