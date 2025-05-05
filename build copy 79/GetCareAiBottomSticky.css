@@ -1,0 +1,139 @@
+#bottom-sticky-root-aze12fk .care-ai-container {
+  position: fixed;
+  width: 100%;
+  background-color: #E6F5FC;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  z-index: 3;
+  padding: 12px 16px;
+  border: 1px solid #28328C;
+  bottom: 0;
+  border-bottom: none;
+}
+@media only screen and (min-width: 769px) {
+  #bottom-sticky-root-aze12fk .care-ai-container {
+    display: none !important;
+  }
+}
+#bottom-sticky-root-aze12fk .care-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#bottom-sticky-root-aze12fk .care-ai-at-profile {
+  bottom: 70px;
+}
+#bottom-sticky-root-aze12fk .care-ai-toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+#bottom-sticky-root-aze12fk .care-ai-header-history {
+  display: flex;
+  gap: 7px;
+}
+#bottom-sticky-root-aze12fk .care-ai-header-text {
+  color: #2d2d32;
+  font-weight: bold;
+}
+#bottom-sticky-root-aze12fk .care-ai-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#bottom-sticky-root-aze12fk .care-ai-avatar img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+#bottom-sticky-root-aze12fk .care-ai-free-label {
+  background: #02A401;
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+#bottom-sticky-root-aze12fk .care-ai-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#bottom-sticky-root-aze12fk .care-ai-input {
+  width: 100%;
+  height: 42px;
+  padding: 10px 14px;
+  margin: 5px 0;
+  border-radius: 42px;
+  border: none;
+  font-size: 16px;
+}
+#bottom-sticky-root-aze12fk .care-ai-input::placeholder {
+  color: #2D2D32;
+}
+#bottom-sticky-root-aze12fk .doctor-profile-image {
+  width: 36px;
+  height: 36px;
+}
+#bottom-sticky-root-aze12fk .care-ai-send-button {
+  background: #199FD9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#bottom-sticky-root-aze12fk .care-ai-send-icon {
+  display: flex;
+  width: 30px;
+  height: 30px;
+}
+#bottom-sticky-root-aze12fk .care-ai-modal-header {
+  width: 100%;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 10px 16px;
+  border-bottom: 1px solid #eee;
+}
+#bottom-sticky-root-aze12fk .care-ai-modal-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#bottom-sticky-root-aze12fk .care-ai-modal-avatar {
+  border-radius: 50%;
+  overflow: hidden;
+}
+#bottom-sticky-root-aze12fk .care-ai-modal-user-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  line-height: 16px;
+}
+#bottom-sticky-root-aze12fk .care-ai-modal-user-info .care-ai-header-user-name {
+  font-weight: bold;
+  color: #2d2d32;
+}
+#bottom-sticky-root-aze12fk .care-ai-modal-user-info .care-ai-header-user-status {
+  color: #787887;
+}
+#bottom-sticky-root-aze12fk .care-ai-history {
+  color: #787887;
+  font-weight: 700;
+  font-size: 14px;
+}
